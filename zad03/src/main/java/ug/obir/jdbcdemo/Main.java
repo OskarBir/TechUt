@@ -57,6 +57,31 @@ public class Main {
         for (Object x : socksPrice)
             System.out.println(x);
 
+        System.out.println("Podaj markę, rozmiar, czy bawełniane(true,false) oraz cenę skarpetki, która chcesz dodać:");
+        String new_brand = scanner.nextLine();
+        int new_size = Integer.parseInt(scanner.nextLine());
+        boolean new_cotton = Boolean.parseBoolean(scanner.nextLine());
+        float new_price = Float.parseFloat(scanner.nextLine());
+        sockServiceImpl.addSock(new Sock(new_brand, new_size, new_cotton, new_price));
+
+        System.out.println("Wszystkie skarpetki:");
+        Object[] all2 = sockServiceImpl.getAllSocks().toArray();
+        for (Object x : all2)
+            System.out.println(x);
+
+        System.out.println("Podaj ID skarpetki którą chcesz usunąć:");
+        int id = Integer.parseInt(scanner.nextLine());
+        sockServiceImpl.removeSock(sockServiceImpl.findSockById(id));
+
+        System.out.println("Wszystkie skarpetki(skarpetka o podanym ID została usunięta):");
+        Object[] all3 = sockServiceImpl.getAllSocks().toArray();
+        for (Object x : all3)
+            System.out.println(x);
+
+        System.out.println("Podaj ID skarpetki którą chcesz znaleźć:");
+        int id2 = Integer.parseInt(scanner.nextLine());
+        System.out.println(sockServiceImpl.findSockById(id2));
+
     }
 }
 
