@@ -4,6 +4,9 @@ import javax.persistence.*;
 
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "sock.all", query = "Select p from Person p"),
+})
 public class Sock {
     private Long id;
     private String brand;

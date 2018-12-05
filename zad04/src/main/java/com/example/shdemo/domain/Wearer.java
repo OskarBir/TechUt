@@ -1,8 +1,14 @@
 package com.example.shdemo.domain;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.*;
+
+@Entity
+@NamedQueries({
+        @NamedQuery(name = "wearer.all", query = "Select w from Wearer w")
+})
 
 public class Wearer {
     private Long id;

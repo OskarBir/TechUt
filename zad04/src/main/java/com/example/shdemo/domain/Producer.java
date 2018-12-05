@@ -1,9 +1,11 @@
 package com.example.shdemo.domain;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.*;
+
+@Entity
 public class Producer {
     private Long id;
 
@@ -28,7 +30,7 @@ public class Producer {
     }
 
     // Be careful here, both with lazy and eager fetch type
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Sock> getSocks() {
         return socks;
     }
