@@ -1,41 +1,29 @@
 package com.example.shdemo.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.*;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class Label {
-//    to do
-//    private Long id;
-//
-//    private String name = "unknown";
-//
-//    private List<Sock> socks = new ArrayList<Sock>();
-//
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    public Long getId() {
-//        return id;
-//    }
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//    public void setName(String name) {
-//        this.name = name;
-//    }
-//
-//    // Be careful here, both with lazy and eager fetch type
-//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    public List<Sock> getSocks() {
-//        return socks;
-//    }
-//    public void setSocks(List<Sock> socks) {
-//        this.socks = socks;
-//    }
+
+    private Long id;
+    private String label;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getLabel(){return label;}
+
+    public void setLabel(String label){this.label = label;}
+
 }

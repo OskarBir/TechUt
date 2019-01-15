@@ -1,23 +1,29 @@
 package com.example.shdemo.domain;
 
+import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import javax.persistence.*;
-
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "producer.getAll",query = "Select p from Producer p"),
+        @NamedQuery(name = "producer.getById",query = "Select p from Producer p where :id=p.id"),
+        @NamedQuery(name = "producer.getByName",query = "Select p from Producer p where :name=p.name")
+})
 public class Producer {
+
     private Long id;
+    private String name;
 
-    private String name = "unknown";
-
-    private List<Sock> socks = new ArrayList<Sock>();
+    private List<Sock> sockList = new ArrayList<Sock>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -25,16 +31,17 @@ public class Producer {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
 
-    // Be careful here, both with lazy and eager fetch type
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public List<Sock> getSocks() {
-        return socks;
+    public List<Sock> getSockList() {
+        return sockList;
     }
-    public void setSocks(List<Sock> socks) {
-        this.socks = socks;
+
+    public void setSockList(List<Sock> sockList) {
+        this.sockList = sockList;
     }
 }
