@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import com.example.shdemo.domain.Producer;
 import com.example.shdemo.domain.Sock;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,15 +39,26 @@ public class ProducerServiceTest {
 
     private final String PRODUCER_NAME = "Nike";
 
-    @Test
-    public void addProducerTest(){
+    @Before
+    public void setUp() {
+
         List<Producer> producers = producerService.getAllProducers();
 
-        for(Producer producer : producers){
-            if(producer.getName().equals(PRODUCER_NAME))
+        for (Producer producer : producers) {
+            if (producer.getName().equals(PRODUCER_NAME))
                 producerService.deleteProducer(producer);
         }
 
+        List<Sock> sockList = sockService.getAllSocks();
+
+        for (Sock sock: sockList){
+            if(sock.getName().equals(SOCK1_NAME)){
+                sockService.deleteSock(sock);
+            }
+        }
+    }
+    @Test
+    public void addProducerTest(){
         Producer producerToAdd = new Producer();
         producerToAdd.setName(PRODUCER_NAME);
 
@@ -59,18 +71,11 @@ public class ProducerServiceTest {
 
     @Test
     public void updateProducerTest(){
-        List<Producer> producers = producerService.getAllProducers();
-
-        for(Producer producer : producers){
-            if(producer.getName().equals(PRODUCER_NAME))
-                producerService.deleteProducer(producer);
-        }
-
         Producer producerToAdd = new Producer();
         producerToAdd.setName(PRODUCER_NAME);
 
         producerService.addProducer(producerToAdd);
-
+        producerService.updateProducer(producerToAdd);
         Producer addedProducer = producerService.getProducerByName(PRODUCER_NAME);
 
         assertEquals(PRODUCER_NAME, addedProducer.getName());
@@ -78,26 +83,10 @@ public class ProducerServiceTest {
 
     @Test
     public void addSockToProducerTest(){
-        List<Sock> sockList = sockService.getAllSocks();
-
-        for (Sock sock : sockList){
-            if(sock.getName().equals(SOCK1_NAME)){
-                sockService.deleteSock(sock);
-            }
-        }
-
         Sock sockToAdd = new Sock();
         sockToAdd.setName(SOCK1_NAME);
         sockToAdd.setCotton(SOCK1_COTTON);
         sockToAdd.setPrice(SOCK1_PRICE);
-
-
-        List<Producer> producers = producerService.getAllProducers();
-
-        for(Producer producer : producers){
-            if(producer.getName().equals(PRODUCER_NAME))
-                producerService.deleteProducer(producer);
-        }
 
         Producer producerToAdd = new Producer();
         producerToAdd.setName(PRODUCER_NAME);
@@ -117,15 +106,7 @@ public class ProducerServiceTest {
     }
 
     @Test
-    public void removeSockFromProducerrTest(){
-        List<Sock> sockList = sockService.getAllSocks();
-
-        for (Sock sock : sockList){
-            if(sock.getName().equals(SOCK1_NAME) || sock.getName().equals(SOCK2_NAME)){
-                sockService.deleteSock(sock);
-            }
-        }
-
+    public void removeSockFromProducerTest(){
         Sock sockToRemove = new Sock();
         sockToRemove.setName(SOCK1_NAME);
         sockToRemove.setCotton(SOCK1_COTTON);
@@ -135,13 +116,6 @@ public class ProducerServiceTest {
         sockToAdd.setName(SOCK2_NAME);
         sockToAdd.setCotton(SOCK2_COTTON);
         sockToAdd.setPrice(SOCK2_PRICE);
-
-        List<Producer> producers = producerService.getAllProducers();
-
-        for(Producer producer : producers){
-            if(producer.getName().equals(PRODUCER_NAME))
-                producerService.deleteProducer(producer);
-        }
 
         Producer producerToAdd = new Producer();
         producerToAdd.setName(PRODUCER_NAME);
@@ -173,26 +147,10 @@ public class ProducerServiceTest {
 
     @Test
     public void deleteProducerTest(){
-        List<Sock> sockList = sockService.getAllSocks();
-
-        for (Sock sock : sockList){
-            if(sock.getName().equals(SOCK1_NAME)){
-                sockService.deleteSock(sock);
-            }
-        }
-
         Sock sockToAdd = new Sock();
         sockToAdd.setName(SOCK1_NAME);
         sockToAdd.setCotton(SOCK1_COTTON);
         sockToAdd.setPrice(SOCK1_PRICE);
-
-
-        List<Producer> producers = producerService.getAllProducers();
-
-        for(Producer producer : producers){
-            if(producer.getName().equals(PRODUCER_NAME))
-                producerService.deleteProducer(producer);
-        }
 
         Producer producerToAdd = new Producer();
         producerToAdd.setName(PRODUCER_NAME);
@@ -206,7 +164,5 @@ public class ProducerServiceTest {
         assertEquals(producerService.getAllProducers().size(),0);
         assertEquals(sockService.getAllSocks().size(),0);
     }
-
-
 
 }

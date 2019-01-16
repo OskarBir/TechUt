@@ -16,5 +16,4 @@ public interface ProducerService {
     void deleteProducer(Producer producer);
     List getAllSocksFromProducer(Producer producer);
 
-
 }

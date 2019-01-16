@@ -2,13 +2,20 @@ package com.example.shdemo.domain;
 
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "wearer.getAll",query = "Select w from Wearer w"),
+        @NamedQuery(name = "wearer.getByName",query = "Select w from Wearer w where :name=w.name")
+})
 public class Wearer {
 
     private Long id;
-    private String FirstName;
-    private String LastName;
+    private String name;
+
+    private List<Sock> socks;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,19 +27,26 @@ public class Wearer {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return FirstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.FirstName = firstName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getLastName() {
-        return LastName;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Wearer wearer = (Wearer) o;
+        return id.equals(wearer.id) &&
+                name.equals(wearer.name);
     }
 
-    public void setLastName(String lastName) {
-        this.LastName = lastName;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
     }
 }
